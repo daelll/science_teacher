@@ -26,6 +26,10 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- html2canvas & jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -229,27 +233,32 @@
             background-color: #fff;
             border-radius: 0.5rem;
             border: 1px solid #e2e8f0;
-            display: block;
-            /* 모바일에서 표가 넓을 때 가로 스크롤 가능하게 처리 */
+            display: table;
+            /* block에서 table로 변경하여 가로 넓이 온전히 사용 */
+            table-layout: auto;
+        }
+
+        /* 테이블 바깥쪽 스크롤 레이퍼 처리를 위한 가상 부모(자바스크립트로 감싸진 않으므로 차선책) */
+        .ai-content {
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         .ai-content th {
             background-color: #f8fafc;
             font-weight: 600;
             text-align: left;
-            padding: 0.5rem;
+            padding: 0.6rem 0.75rem;
             border: 1px solid #e2e8f0;
             white-space: nowrap;
             /* 제목은 줄바꿈 되지 않도록 */
         }
 
         .ai-content td {
-            padding: 0.5rem;
+            padding: 0.6rem 0.75rem;
             border: 1px solid #e2e8f0;
-            min-width: 60px;
+            min-width: 80px;
             /* 너무 좁게 찌그러지지 않도록 최소 너비 지정 */
+            word-break: keep-all;
         }
 
         .ai-content blockquote {
